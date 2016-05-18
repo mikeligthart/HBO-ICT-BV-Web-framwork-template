@@ -1,0 +1,7 @@
+New log file opened at Wed May 18 13:54:06 CEST 2016 by 4064@DESKTOP-HC09HPJ
+Taking next connection to: 60237
+New client attempting to connect on port: 60238-60237
+  Address = /145.2.199.60:60237
+This client on port 60238 has uuid 89ad61e3-88a5-4ac5-b391-5e8d11556009 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-89ad61e3-88a5-4ac5-b391-5e8d11556009
+Taking next connection to: 60237
