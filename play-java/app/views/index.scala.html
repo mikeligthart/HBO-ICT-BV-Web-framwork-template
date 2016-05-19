@@ -2,19 +2,42 @@
  * This template takes a single argument, a String containing a
  * message to display.
  *@
-@(message: String)
+@(title: String, users: List[User], userForm: Form[User])
 
 @*
  * Call the `main` template with two arguments. The first
  * argument is a `String` with the title of the page, the second
  * argument is an `Html` object containing the body of the page.
  *@
-@main("Welcome to Play") {
+@main(title) {
 
     @*
      * Get an `Html` object by calling the built-in Play welcome
      * template and passing a `String` message.
      *@
-    @play20.welcome(message, style = "Java")
+    <h1>Gebruikers</h1>
+    @if(users.size > 0){
+        <ul>
+        @for(user <- users){
+            <li>@user.name (@user.id)</li>
+        }
+        </ul>
+    }else{
+        Geen gebruikers in database.
+    }
+
+    <h2>Voeg gebruiker toe</h2>
+    @if(userForm.hasGlobalErrors) {
+    <div>
+        Error: @userForm.globalError.message
+    </div>
+    }
+    @helper.form(action = routes.HomeController.addUser()) {
+        @helper.inputText(userForm("name"))
+        <br />
+        <button type="submit">Voeg toe</button>
+    }
+
+
 
 }

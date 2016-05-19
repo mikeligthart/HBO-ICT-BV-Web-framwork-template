@@ -28,6 +28,7 @@ import static org.junit.Assert.*;
  */
 public class ApplicationTest {
 
+    /**
     @Test
     public void simpleCheck() {
         int a = 1 + 1;
@@ -40,6 +41,7 @@ public class ApplicationTest {
         assertEquals("text/html", html.contentType());
         assertTrue(html.body().contains("Your new application is ready."));
     }
+    */
 
 
 }
