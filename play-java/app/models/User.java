@@ -7,8 +7,10 @@ import play.data.validation.Constraints;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.Constraint;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mike Ligthart on 18-May-16.
@@ -22,6 +24,12 @@ public class User extends Model {
 
     @Constraints.Required
     public String name;
+
+    @Constraints.Required
+    public String password;
+
+    public int count;
+
 
     /*
     @Formats.DateTime(pattern="dd-MM-yyyy")
@@ -40,4 +48,6 @@ public class User extends Model {
     public static List<User> getUsers(){
         return find.all();
     }
+
+
 }

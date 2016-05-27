@@ -2,7 +2,7 @@
  * This template takes a single argument, a String containing a
  * message to display.
  *@
-@(title: String, users: List[User], userForm: Form[User])
+@(title: String, woorden: List[Word], wordForm: Form[Word], wordMostSearch: List[Word], adminCheck: Form[AdminUsers])
 
 @*
  * Call the `main` template with two arguments. The first
@@ -15,28 +15,63 @@
      * Get an `Html` object by calling the built-in Play welcome
      * template and passing a `String` message.
      *@
-    <h1>Gebruikers</h1>
-    @if(users.size > 0){
+    <h1>Word</h1>
+    @if(woorden.size > 0){
+
         <ul>
-        @for(user <- users){
-            <li>@user.name (@user.id)</li>
+            @woorden.size
+        @for(word <- woorden){
+            <li>@word.word <bolt> met de description</bolt> @word.description </li>
+
         }
         </ul>
     }else{
-        Geen gebruikers in database.
+        Geen word in database.
     }
 
-    <h2>Voeg gebruiker toe</h2>
-    @if(userForm.hasGlobalErrors) {
+    <h2>Voeg word toe</h2>
+    @if(wordForm.hasGlobalErrors) {
     <div>
-        Error: @userForm.globalError.message
+        Error: @wordForm.globalError.message
     </div>
     }
     @helper.form(action = routes.HomeController.addUser()) {
-        @helper.inputText(userForm("name"))
+        @helper.inputText(wordForm("word"))
+        @helper.inputText(wordForm("description"))
         <br />
         <button type="submit">Voeg toe</button>
     }
+
+    <h1>5 meest gezochte woorden</h1>
+    @if(wordMostSearch.size > 0){
+        <ul>
+            @wordMostSearch.size()
+        @for(woorden <- wordMostSearch){
+            <li>@woorden.word <bolt> met de description</bolt> @woorden.description </li>
+
+        }
+        </ul>
+    }else{
+        Geen word in database.
+    }
+
+
+        <h1>check admin</h1>
+        @title
+
+        @if(adminCheck.hasGlobalErrors) {
+            <div>
+                Error: @adminCheck.globalError.message
+            </div>
+        }
+        @helper.form(action = routes.HomeController.admincheck()) {
+            @helper.inputText(adminCheck("userName"))
+            @helper.inputText(adminCheck("password"))
+            <br />
+            <button type="submit">Voeg toe</button>
+        }
+
+
 
 
 
