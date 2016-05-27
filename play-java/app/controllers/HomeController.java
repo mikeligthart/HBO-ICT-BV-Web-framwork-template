@@ -71,21 +71,28 @@ public class HomeController extends Controller {
     public  Result login() {
         Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
 
-        return ok(login.render(test));
+        return ok(login.render("admin",test));
     }
     public Result authenticate() {
-
+        Logger.debug("ik ben nu in methode authenticatie");
         Form<AdminUsers> loginForm =formFactory.form(AdminUsers.class).bindFromRequest();
 
         if (loginForm.hasErrors()) {
-            return badRequest(login.render(loginForm));
+            Logger.debug("controleer of er haserrors zijn");
+            return badRequest(login.render("admin",loginForm));
         } else {
+            Logger.debug("er zijn geen haserrors");
+            Logger.debug("nu controle of paswoord en gebruikersnaam gelijk is aan opgegeven");
             if (loginForm.get().getUserName().equals(gebruiker) && loginForm.get().getPassword().equals(wachtwoord)) {
+                Logger.debug("gebruikersnaam en wachtwoord komen overeen");
                 session().clear();
+                Logger.debug("sessie word opgeruimd");
                 session("username", loginForm.get().userName);
-                return redirect(routes.HomeController.index());
+                Logger.debug("gebruiker toegevroegd aan sessie");
+              return redirect(routes.HomeController.index());
             }else{
-                return badRequest(login.render(loginForm));
+                Logger.debug("wachtwoord en gebruikernaam komt niet overeen");
+                return badRequest(login.render("admin",loginForm));
             }
 
         }
