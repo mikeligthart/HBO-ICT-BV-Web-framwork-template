@@ -1,0 +1,23 @@
+@(form: Form[AdminUsers])
+
+<html>
+  <head>
+    <title>Zentasks</title>
+
+  </head>
+  <body>
+
+  @helper.form(action = routes.HomeController.authenticate()) {
+
+    <p>
+      <input type="text" name="userName" placeholder="userName">
+  </p>
+  <p>
+    <input type="password" name="password" placeholder="Password">
+    </p>
+    <p>
+      <button type="submit">Login</button>
+    </p>
+  }
+  </body>
+</html>

@@ -56,20 +56,7 @@
     }
 
 
-        <h1>check admin</h1>
-        @title
 
-        @if(adminCheck.hasGlobalErrors) {
-            <div>
-                Error: @adminCheck.globalError.message
-            </div>
-        }
-        @helper.form(action = routes.HomeController.admincheck()) {
-            @helper.inputText(adminCheck("userName"))
-            @helper.inputText(adminCheck("password"))
-            <br />
-            <button type="submit">Voeg toe</button>
-        }
 
 
 

@@ -16,6 +16,8 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static play.data.Form.form;
+
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -24,9 +26,10 @@ public class HomeController extends Controller {
     @Inject FormFactory formFactory;
     @Inject FormFactory testformFactory;
 
+    private static final String gebruiker = "admin";
+    private static final String wachtwoord = "1234";
 
-    private static final String username = "admin";
-    private static final String password = "1234";
+
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -65,10 +68,27 @@ public class HomeController extends Controller {
 
     }
 
-    public static Result login() {
-        return ok(
-                login.render()
-        );
+    public  Result login() {
+        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
+
+        return ok(login.render(test));
+    }
+    public Result authenticate() {
+
+        Form<AdminUsers> loginForm =formFactory.form(AdminUsers.class).bindFromRequest();
+
+        if (loginForm.hasErrors()) {
+            return badRequest(login.render(loginForm));
+        } else {
+            if (loginForm.get().getUserName().equals(gebruiker) && loginForm.get().getPassword().equals(wachtwoord)) {
+                session().clear();
+                session("username", loginForm.get().userName);
+                return redirect(routes.HomeController.index());
+            }else{
+                return badRequest(login.render(loginForm));
+            }
+
+        }
     }
 
 

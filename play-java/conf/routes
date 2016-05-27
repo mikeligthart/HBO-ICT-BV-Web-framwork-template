@@ -6,9 +6,9 @@
 GET     /                           controllers.HomeController.index
 POST    /                           controllers.HomeController.addUser
 GET     /test/:message              controllers.HomeController.test(message: String)
-
-# login
-GET     /login                  controllers.HomeController.login()
+GET     /login                      controllers.HomeController.login
+POST    /login                      controllers.HomeController.authenticate
+POST    /login                      controllers.HomeController.authenticate()
 
 
 # Map static resources from the /public folder to the /assets URL path
