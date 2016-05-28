@@ -38,11 +38,16 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        List<Word> users = Word.getWords();
-        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
+//        List<Word> users = Word.getWords();
+//        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
         List<Word> word = Word.getTenMostCounted();
-        Form<Word> userForm = formFactory.form(Word.class);
-        return ok(index.render("digipedia", users, userForm, word,test));
+//        Form<Word> userForm = formFactory.form(Word.class);
+        return ok(index.render("digipedia", word));
+    }
+
+    public Result woorden() {
+        List<Word> words = Word.getWords();
+        return ok(woorden.render("digipedia",words));
     }
 
     public Result addUser(){
@@ -52,7 +57,7 @@ public class HomeController extends Controller {
         Form<Word> userForm = formFactory.form(Word.class).bindFromRequest();
 
         if (userForm.hasErrors()) {
-            return badRequest(index.render("digipedia", users, userForm, word,test));
+            return badRequest(index.render("digipedia", word));
         } else {
             Logger.debug("UserForm " + userForm);
             Word user = userForm.get();
@@ -71,7 +76,7 @@ public class HomeController extends Controller {
     public  Result login() {
         Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
 
-        return ok(login.render("admin",test));
+        return ok(login.render("Login",test));
     }
     public Result authenticate() {
         List<Word> users = Word.getWords();

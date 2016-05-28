@@ -1,0 +1,31 @@
+@*
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@(title: String, woorden: List[Word], wordForm: Form[Word])
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main(title) {
+  @*
+  * Get an `Html` object by calling the built-in Play welcome
+  * template and passing a `String` message.
+  *@
+  <div class="text-center m-b-20">
+    <img class="home-image" src="@routes.Assets.versioned("images/digipedia.png")" alt=""><br>
+    <span class="home-text">Welkom bij DIGIPEDIA.</span><br> <span class="home-text">
+    Hier vindt je antwoord op jouw vraag</span>
+  </div>
+
+  <div class="container">
+    <h5>5 meest gezochte woorden</h5>
+  </div>
+
+
+
+  <div class="container">
+    <a class="btn btn-lg btn-success btn-block home-button" href="/woorden">Of zoek jouw woord</a>
+  </div>
+}

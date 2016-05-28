@@ -1,0 +1,99 @@
+.header {
+    height: 40px;
+    width: 100%;
+    BACKGROUND: #7ac142;
+}
+
+.right-header-icon {
+    float: right;
+    padding: 10px 16px;
+    width: 52px;
+}
+
+.left-header-icon {
+    float: left;
+    padding:10px 16px;
+    width: 106px;
+}
+
+.main {
+    min-height: 400px;
+}
+
+footer{
+    bottom: 0;
+    text-align: center;
+}
+
+.footer-text{
+    color: lightgray;
+    font-size: 9px;
+}
+
+.footer-image{
+    width: 90px;
+}
+
+#home-button{
+    width:106px;
+}
+#custom-search-input{
+    border: solid 1px #E4E4E4;
+    background-color: #fff;
+    margin: 16px 3px;
+    height: 48px;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+
+.home-image{
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.home-text {
+    font-style: oblique;
+    font-size: 16px;
+}
+
+.btn-success {
+    BACKGROUND: #7ac142;
+    border-color: #7ac142;
+
+}
+
+.home-button{
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.m-b-10{
+    margin-bottom: 10px;
+}
+
+.m-b-20{
+    margin-bottom: 20;
+}

@@ -8,10 +8,10 @@ POST    /                           controllers.HomeController.addUser
 GET     /test/:message              controllers.HomeController.test(message: String)
 GET     /login                      controllers.HomeController.login
 POST    /login                      controllers.HomeController.authenticate
-POST    /login                      controllers.HomeController.authenticate()
 
 # hier komt de pagina die word gebruikt als inlog compleet is.
 GET     /index.html                 controllers.HomeController.index
+GET     /woorden                    controllers.HomeController.woorden
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

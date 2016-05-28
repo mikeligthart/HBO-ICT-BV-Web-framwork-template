@@ -1,65 +1,50 @@
 @*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(title: String, woorden: List[Word], wordForm: Form[Word], wordMostSearch: List[Word], adminCheck: Form[AdminUsers])
-
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main(title) {
-
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@(title: String, wordMostSearch: List[Word])
     @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    <h1>Word</h1>
-    @if(woorden.size > 0){
+    * Call the `main` template with two arguments. The first
+    * argument is a `String` with the title of the page, the second
+    * argument is an `Html` object containing the body of the page.
+    *@
+    @main(title) {
+        @*
+        * Get an `Html` object by calling the built-in Play welcome
+        * template and passing a `String` message.
+        *@
+        <div class="text-center m-b-20">
+            <img class="home-image" src="@routes.Assets.versioned("images/digipedia.png")" alt=""><br>
+            <span class="home-text">Welkom bij DIGIPEDIA.</span><br> <span class="home-text">
+            Hier vindt je antwoord op jouw vraag</span>
+        </div>
 
-        <ul>
-            @woorden.size
-        @for(word <- woorden){
-            <li>@word.word <bolt> met de description</bolt> @word.description </li>
+        <div class="container">
+            <h5>5 meest gezochte woorden</h5>
+        </div>
 
+        @if(wordMostSearch.size > 0) {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Woord</th>
+                        <th>Omschrijving</th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+                @for(word <- wordMostSearch) {
+                    <tr>
+                        <td> @word.word </td>
+                        <td>@word.description </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        } else {
+            Geen word in database.
         }
-        </ul>
-    }else{
-        Geen word in database.
+
+        <div class="container">
+            <a class="btn btn-lg btn-success btn-block home-button" href="/woorden">Of zoek jouw woord</a>
+        </div>
     }
-
-    <h2>Voeg word toe</h2>
-    @if(wordForm.hasGlobalErrors) {
-    <div>
-        Error: @wordForm.globalError.message
-    </div>
-    }
-    @helper.form(action = routes.HomeController.addUser()) {
-        @helper.inputText(wordForm("word"))
-        @helper.inputText(wordForm("description"))
-        <br />
-        <button type="submit">Voeg toe</button>
-    }
-
-    <h1>5 meest gezochte woorden</h1>
-    @if(wordMostSearch.size > 0){
-        <ul>
-            @wordMostSearch.size()
-        @for(woorden <- wordMostSearch){
-            <li>@woorden.word <bolt> met de description</bolt> @woorden.description </li>
-
-        }
-        </ul>
-    }else{
-        Geen word in database.
-    }
-
-
-
-
-
-
-
-
-}
