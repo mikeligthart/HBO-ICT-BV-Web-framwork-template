@@ -38,7 +38,7 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        List<Word> users = Word.getUsers();
+        List<Word> users = Word.getWords();
         Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
         List<Word> word = Word.getTenMostCounted();
         Form<Word> userForm = formFactory.form(Word.class);
@@ -47,7 +47,7 @@ public class HomeController extends Controller {
 
     public Result addUser(){
         Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
-        List<Word> users = Word.getUsers();
+        List<Word> users = Word.getWords();
         List<Word> word = Word.getTenMostCounted();
         Form<Word> userForm = formFactory.form(Word.class).bindFromRequest();
 
@@ -74,6 +74,7 @@ public class HomeController extends Controller {
         return ok(login.render("admin",test));
     }
     public Result authenticate() {
+        List<Word> users = Word.getWords();
         Logger.debug("ik ben nu in methode authenticatie");
         Form<AdminUsers> loginForm =formFactory.form(AdminUsers.class).bindFromRequest();
 
@@ -89,7 +90,7 @@ public class HomeController extends Controller {
                 Logger.debug("sessie word opgeruimd");
                 session("username", loginForm.get().userName);
                 Logger.debug("gebruiker toegevroegd aan sessie");
-              return redirect(routes.HomeController.index());
+              return index();
             }else{
                 Logger.debug("wachtwoord en gebruikernaam komt niet overeen");
                 return badRequest(login.render("admin",loginForm));

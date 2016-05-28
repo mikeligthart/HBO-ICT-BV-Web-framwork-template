@@ -41,7 +41,7 @@ public class Word extends Model{
         return word;
     }
 
-    public static List<Word> getUsers(){
+    public static List<Word> getWords(){
         return find.all();
     }
 

@@ -11,12 +11,20 @@
         <div class="login-panel panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">login</h3>
+            @if(form.hasGlobalErrors) {
+              <p>
+              @form.globalError.message
+              </p>
+            }
           </div>
           <div class="panel-body">
 
               <fieldset>
                 <div class="form-group">
                 @helper.form(action = routes.HomeController.authenticate()) {
+
+
+
 
                   <input class="form-control" placeholder="username" name="userName" type="text" autofocus>
                 </div>
