@@ -9,23 +9,46 @@
 * argument is an `Html` object containing the body of the page.
 *@
 @main(title) {
-  @*
-  * Get an `Html` object by calling the built-in Play welcome
-  * template and passing a `String` message.
-  *@
-  <div class="text-center m-b-20">
-    <img class="home-image" src="@routes.Assets.versioned("images/digipedia.png")" alt=""><br>
-    <span class="home-text">Welkom bij DIGIPEDIA.</span><br> <span class="home-text">
-    Hier vindt je antwoord op jouw vraag</span>
-  </div>
+    @*
+    * Get an `Html` object by calling the built-in Play welcome
+    * template and passing a `String` message.
+    *@
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2 text-center form-margin">
+            <br>
+            <h3 class="m-b-20">
+                Voeg begrip toe
+            </h3>
+            <br>
+            <br>
+            <form action="@routes.HomeController.addWord()" id="addword" class="form-horizontal" onsubmit="return checkValid()" role="form" method="post">
+                <div class="form-group">
+                    <input type="text" name="word" class="form-control" placeholder="Begrip" >
+                </div>
 
-  <div class="container">
-    <h5>5 meest gezochte woorden</h5>
-  </div>
+
+                <div class="form-group ">
+                    <textarea rows="10"  class="form-control" name="description" placeholder="Omshrijving"></textarea>
+                </div>
 
 
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-default btn-success" id="home-button">Opslaan</button>
+                    </div>
+                </div>
+            </form>
 
-  <div class="container">
-    <a class="btn btn-lg btn-success btn-block home-button" href="/woorden">Of zoek jouw woord</a>
-  </div>
+        </div>
+    </div>
+
+    <div class="alert alert-danger custom-alert" id="alert-word">
+        <strong>Let op!</strong> Vul begrip in
+    </div>
+    <div class="alert alert-danger custom-alert" id="alert-description">
+        <strong>Let op!</strong> Vul omschrijving in
+    </div>
+    <div class="alert alert-success custom-alert" id="alert-succeed">
+        <strong>Top!</strong> Begrip toegevoegd
+    </div>
 }

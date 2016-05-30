@@ -1,43 +1,30 @@
-if (window.console) {
-  console.log("Welcome to your Play application's JavaScript!");
+function checkValid() {
+
+
+    var word = document.forms[0].word.value;
+    var description = document.forms[0].description.value;
+
+
+    if (word == null || word == "") {
+        document.getElementById("alert-word").style.display = "block";
+        setTimeout(function () {
+            document.getElementById("alert-word").style.display = "none";
+        }, 3000);
+        return false
+
+    } else if (description == null ||description == "") {
+        document.getElementById('alert-description').style.display = "block";
+        setTimeout(function () {
+            document.getElementById('alert-description').style.display = "none";
+        }, 3000);
+        return false
+    } else {
+        document.getElementById('alert-succeed').style.display = "block";
+        setTimeout(function () {
+            document.getElementById('alert-succeed').style.display = "none";
+            return true
+        }, 3000);
+
+    }
+
 }
-
-(function(document) {
-  'use strict';
-
-  var LightTableFilter = (function(Arr) {
-
-    var _input;
-
-    function _onInputEvent(e) {
-      _input = e.target;
-      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-      Arr.forEach.call(tables, function(table) {
-        Arr.forEach.call(table.tBodies, function(tbody) {
-          Arr.forEach.call(tbody.rows, _filter);
-        });
-      });
-    }
-
-    function _filter(row) {
-      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-    }
-
-    return {
-      init: function() {
-        var inputs = document.getElementById('custom-search-input');
-        Arr.forEach.call(inputs, function(input) {
-          input.oninput = _onInputEvent;
-        });
-      }
-    };
-  })(Array.prototype);
-
-  document.addEventListener('readystatechange', function() {
-    if (document.readyState === 'complete') {
-      LightTableFilter.init();
-    }
-  });
-
-})(document);

@@ -14,37 +14,38 @@
         * template and passing a `String` message.
         *@
         <div class="text-center m-b-20">
-            <img class="home-image" src="@routes.Assets.versioned("images/digipedia.png")" alt=""><br>
+            <img class="home-image" src="@routes.Assets.versioned("images/digipedia.png")" alt="digipedia"><br>
             <span class="home-text">Welkom bij DIGIPEDIA.</span><br> <span class="home-text">
             Hier vindt je antwoord op jouw vraag</span>
         </div>
 
-        <div class="container">
-            <h5>5 meest gezochte woorden</h5>
-        </div>
-
         @if(wordMostSearch.size > 0) {
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Woord</th>
-                        <th>Omschrijving</th>
-                    </tr>
-                </thead>
-                <tbody id="table">
-                @for(word <- wordMostSearch) {
-                    <tr>
-                        <td> @word.word </td>
-                        <td>@word.description </td>
-                    </tr>
-                }
-                </tbody>
-            </table>
+            <div class="col-md-6 col-md-offset-3">
+                <h5>5 meest gezochte woorden</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Begrip</th>
+                            <th>Omschrijving</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+                    @for(word <- wordMostSearch) {
+                        <tr>
+                            <td> @word.word </td>
+                            <td id="description">@word.description </td>
+                            <td id="go-button"><a href="/singleWord(id)"><img src="@routes.Assets.versioned("images/go.png")" alt="go"> </a></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
         } else {
-            Geen word in database.
+            Geen begrip in database.
         }
-
+        <div class="clearfix"></div>
         <div class="container">
-            <a class="btn btn-lg btn-success btn-block home-button" href="/woorden">Of zoek jouw woord</a>
+            <a class="btn btn-lg btn-success btn-block home-button" href="/woorden">Of zoek jouw begrip</a>
         </div>
     }

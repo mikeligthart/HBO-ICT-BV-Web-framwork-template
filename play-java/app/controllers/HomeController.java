@@ -40,30 +40,40 @@ public class HomeController extends Controller {
     public Result index() {
 //        List<Word> users = Word.getWords();
 //        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
-        List<Word> word = Word.getTenMostCounted();
+        List<Word> word = Word.getFiveMostCounted();
 //        Form<Word> userForm = formFactory.form(Word.class);
         return ok(index.render("digipedia", word));
     }
+
+
 
     public Result woorden() {
         List<Word> words = Word.getWords();
         return ok(woorden.render("digipedia",words));
     }
 
-    public Result addUser(){
-        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
-        List<Word> users = Word.getWords();
-        List<Word> word = Word.getTenMostCounted();
-        Form<Word> userForm = formFactory.form(Word.class).bindFromRequest();
+    public Result addWordForm() {
+        List<Word> words = Word.getWords();
+//        List<Word> word = Word.getTenMostCounted();
+        Form<Word> addWordForm = formFactory.form(Word.class).bindFromRequest();
 
-        if (userForm.hasErrors()) {
-            return badRequest(index.render("digipedia", word));
+        return ok(addWord.render("digipedia",words, addWordForm));
+    }
+
+    public Result addWord(){
+//        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
+        List<Word> words = Word.getWords();
+//        List<Word> word = Word.getTenMostCounted();
+        Form<Word> addWordForm = formFactory.form(Word.class).bindFromRequest();
+
+        if (addWordForm.hasErrors()) {
+            return badRequest(addWord.render("digipedia",words, addWordForm));
         } else {
-            Logger.debug("UserForm " + userForm);
-            Word user = userForm.get();
-            user.save();
+            Logger.debug("wordForm " + addWordForm);
+            Word newWord = addWordForm.get();
+            newWord.save();
 
-            return index();
+            return addWordForm();
         }
     }
 
@@ -79,7 +89,6 @@ public class HomeController extends Controller {
         return ok(login.render("Login",test));
     }
     public Result authenticate() {
-        List<Word> users = Word.getWords();
         Logger.debug("ik ben nu in methode authenticatie");
         Form<AdminUsers> loginForm =formFactory.form(AdminUsers.class).bindFromRequest();
 
@@ -95,7 +104,7 @@ public class HomeController extends Controller {
                 Logger.debug("sessie word opgeruimd");
                 session("username", loginForm.get().userName);
                 Logger.debug("gebruiker toegevroegd aan sessie");
-              return index();
+              return addWordForm();
             }else{
                 Logger.debug("wachtwoord en gebruikernaam komt niet overeen");
                 return badRequest(login.render("admin",loginForm));

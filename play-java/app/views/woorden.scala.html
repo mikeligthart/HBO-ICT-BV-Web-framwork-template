@@ -1,49 +1,53 @@
 @(title: String, woorden: List[Word])
 
-@main(title) {
+    @main(title) {
 
-    <div id="custom-search-input">
-        <div class="input-group col-md-12">
-            <input id="input" type="text" class="form-control input-lg" placeholder="Zoek" />
-            <span class="input-group-btn">
-                <button class="btn btn-info btn-lg" type="button">
-                    <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </span>
+        <div class="col-md-offset-4 col-md-4">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input id="input" type="text" class="form-control input-lg" placeholder="Zoek" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Begrip</th>
+                        <th>Omschrijving</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+                    @for(word <- woorden) {
+                        <tr>
+                            <td> @word.word </td>
+                            <td id="description">@word.description </td>
+                            <td id="go-button"><a href="/singleWord(id)"><img src="@routes.Assets.versioned("images/go.png")" alt="go"> </a></td>
+                        </tr>
+                    }
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+                    <script type="text/javascript">
+                            var $rows = $('#table tr');
+                            $('#input').keyup(function () {
+                                console.log('test')
+                                var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+                                $rows.show().filter(function () {
+                                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                                    return !~text.indexOf(val);
+                                }).hide();
+                            });
+                    </script>
+                </tbody>
+            </table>
         </div>
-    </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Woord</th>
-                <th>Omschrijving</th>
-            </tr>
-        </thead>
-        <tbody id="table">
-            @for(word <- woorden) {
-                <tr>
-                    <td> @word.word </td>
-                    <td>@word.description </td>
-                </tr>
-            }
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-            <script type="text/javascript">
-                    var $rows = $('#table tr');
-                    $('#input').keyup(function () {
-                        console.log('test')
-                        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-
-                        $rows.show().filter(function () {
-                            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                            return !~text.indexOf(val);
-                        }).hide();
-                    });
-            </script>
-        </tbody>
-    </table>
-
-}
+    }
 
 
 

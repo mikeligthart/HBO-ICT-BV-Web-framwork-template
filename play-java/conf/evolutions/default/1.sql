@@ -15,7 +15,7 @@ create sequence user_seq;
 create table word (
   id                            bigint not null,
   word                          varchar(255),
-  description                   varchar(255),
+  description                   TEXT,
   count                         bigint,
   constraint pk_word primary key (id)
 );

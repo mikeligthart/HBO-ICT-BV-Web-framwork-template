@@ -95,5 +95,53 @@ footer{
 }
 
 .m-b-20{
-    margin-bottom: 20;
+    margin-bottom: 20px;
 }
+
+.form-margin{
+   margin-top:  60px;
+}
+
+#go-button{
+    width: 2px;
+}
+
+#description {
+    width : 300px;
+    overflow:hidden;
+    display:inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.custom-alert {
+    display: none;
+    width: 50%;
+    position: fixed;
+    top: 0;
+    /* margin: 0 auto; */
+    text-align: center;
+    margin-left: 25%;
+}
+
+@media (max-width: 700px) {
+    .custom-alert {
+        width: 90%;
+        margin: 5%;
+    }
+    #description {
+        width : 250px;
+    }
+}
+
+@media (max-width: 400px) {
+    #description {
+        width : 150px;
+    }
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+
+     border-top: none;
+}
+

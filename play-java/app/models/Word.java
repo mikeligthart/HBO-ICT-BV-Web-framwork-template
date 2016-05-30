@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,8 +24,9 @@ public class Word extends Model{
     @Constraints.Required
     public String word;
 
-    @Constraints.Required
+    @Column(columnDefinition = "TEXT")
     public String description;
+
 
     public long count;
 
@@ -46,11 +48,15 @@ public class Word extends Model{
     }
 
 
-    public static List<Word> getTenMostCounted(){
+    public static List<Word> getFiveMostCounted(){
 
         List<Word> words = find.where().setOrderBy("id").findList();
         return words.stream().limit(maxWord).collect(Collectors.toList());
 
     }
 
+    public static List<Word> getWordById(Long id) {
+        //een functie die een enkel woord ophaald.
+        return null;
+    }
 }
