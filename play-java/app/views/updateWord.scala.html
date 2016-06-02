@@ -13,21 +13,44 @@
     * Get an `Html` object by calling the built-in Play welcome
     * template and passing a `String` message.
     *@
-    @helper.form(action = routes.HomeController.databaseupdateWord) {
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2 text-center form-margin">
+            <br>
+            <h3 class="m-b-20">
+                update begrip
+            </h3>
+            <br>
+            <br>
+            <form action="@routes.HomeController.databaseupdateWord" id="addword" class="form-horizontal" onsubmit="return checkValid()" role="form" method="post">
+                <div class="form-group">
+                    <input value="@word.word" type="text" name="word" class="form-control" >
+                </div>
 
 
-        <input value="@word.word" name="word" type="text" autofocus>
-
-        <input value="@word.description" name="description" type="text" \>
-
-
-            <!-- Change this to a button or input when using this as a form -->
-        <button type="submit">update</button>
+                <div class="form-group ">
+                    <textarea  rows="10"  class="form-control" name="description" >@word.description</textarea>
+                </div>
 
 
-    }
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-default btn-success" id="home-button">update</button>
+                    </div>
+                </div>
+            </form>
 
+        </div>
+    </div>
+
+    <div class="alert alert-danger custom-alert" id="alert-word">
+        <strong>Let op!</strong> Vul begrip in
+    </div>
+    <div class="alert alert-danger custom-alert" id="alert-description">
+        <strong>Let op!</strong> Vul omschrijving in
+    </div>
+    <div class="alert alert-success custom-alert" id="alert-succeed">
+        <strong>Top!</strong> Begrip toegevoegd
+    </div>
 }
-
 
 

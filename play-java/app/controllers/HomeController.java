@@ -23,78 +23,109 @@ import static play.data.Form.form;
  * to the application's home page.
  */
 public class HomeController extends Controller {
-    @Inject FormFactory formFactory;
-    @Inject FormFactory testformFactory;
+    @Inject
+    FormFactory formFactory;
+    @Inject
+    FormFactory testformFactory;
 
     private static final String gebruiker = "admin";
     private static final String wachtwoord = "1234";
 
 
-
     /**
-     * An action that renders an HTML page with a welcome message.
-     * The configuration in the <code>routes</code> file means that
-     * this method will be called when the application receives a
-     * <code>GET</code> request with a path of <code>/</code>.
+     * een methode die de voorpagina renderd
+     * @return render pagina index.scala.html
      */
     public Result index() {
-//        List<Word> users = Word.getWords();
-//        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
+
         List<Word> word = Word.getFiveMostCounted();
-//        Form<Word> userForm = formFactory.form(Word.class);
+
         return ok(index.render("digipedia", word));
     }
 
-
-
+    /**
+     * een methode die de woorden.scala renderd.
+     * @return woorden pagina
+     */
     public Result woorden() {
         List<Word> words = Word.getWords();
-        return ok(woorden.render("digipedia",words));
+        return ok(woorden.render("digipedia", words));
     }
 
+    /**
+     *
+     * @return
+     */
     public Result addWordForm() {
-        List<Word> words = Word.getWords();
-//        List<Word> word = Word.getTenMostCounted();
-        Form<Word> addWordForm = formFactory.form(Word.class).bindFromRequest();
-
-        return ok(addWord.render("digipedia",words, addWordForm));
-    }
-
-    public Result addWord(){
-//        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
-        List<Word> words = Word.getWords();
-//        List<Word> word = Word.getTenMostCounted();
-        Form<Word> addWordForm = formFactory.form(Word.class).bindFromRequest();
-
-        if (addWordForm.hasErrors()) {
-            return badRequest(addWord.render("digipedia",words, addWordForm));
+        if (session("username").equalsIgnoreCase("admin")) {
+            List<Word> words = Word.getWords();
+            Form<Word> addWordForm = formFactory.form(Word.class).bindFromRequest();
+            return ok(addWord.render("digipedia", words, addWordForm));
         } else {
-            Logger.debug("wordForm " + addWordForm);
-            Word newWord = addWordForm.get();
-            newWord.save();
-
-            return addWordForm();
+            return login();
         }
     }
 
-    public Result test(String message){
+    /**
+     *
+     * @return
+     */
+    public Result addWord() {
+        if (session("username").equalsIgnoreCase("admin")) {
+            List<Word> words = Word.getWords();
+            Form<Word> addWordForm = formFactory.form(Word.class).bindFromRequest();
+            if (addWordForm.hasErrors()) {
+                return badRequest(addWord.render("digipedia", words, addWordForm));
+            } else {
+                Logger.debug("wordForm " + addWordForm);
+                Word newWord = addWordForm.get();
+                newWord.save();
+                return addWordForm();
+            }
+        } else {
+            return login();
+        }
 
+    }
+
+    /**
+     * niet verwijderen kan van pas komen voor update
+     * @param message
+     * @return
+     */
+    public Result test(String message) {
         return ok(test.render("Test", message));
-
     }
 
-    public  Result login() {
-        Form<AdminUsers> test =formFactory.form(AdminUsers.class).bindFromRequest();
 
-        return ok(login.render("Login",test));
+    /**
+     * methode die controleerd eerst of de gebruiker al niet is ingelogd doormiddel van een sessie.
+     * als dat het geval is word hij gelijk doorgestuurd naar de admin gedeelte van de website.
+     * zoniet, dan word de loginpagina gerenderd
+     * @return
+     */
+    public Result login() {
+
+
+        if (session("username").equalsIgnoreCase("admin")) {
+            Form<AdminUsers> adminUsersForm = formFactory.form(AdminUsers.class).bindFromRequest();
+            return ok(login.render("Login", adminUsersForm));
+        } else {
+            return addWord();
+        }
     }
+
+    /**
+     * methode om te controleren of de ingevoerde gegevens wel kloppen met de variable die zijn opgeslagen hierbovenaan.
+     * @return
+     */
     public Result authenticate() {
         Logger.debug("ik ben nu in methode authenticatie");
-        Form<AdminUsers> loginForm =formFactory.form(AdminUsers.class).bindFromRequest();
+        Form<AdminUsers> loginForm = formFactory.form(AdminUsers.class).bindFromRequest();
 
         if (loginForm.hasErrors()) {
             Logger.debug("controleer of er haserrors zijn");
-            return badRequest(login.render("admin",loginForm));
+            return badRequest(login.render("admin", loginForm));
         } else {
             Logger.debug("er zijn geen haserrors");
             Logger.debug("nu controle of paswoord en gebruikersnaam gelijk is aan opgegeven");
@@ -104,37 +135,57 @@ public class HomeController extends Controller {
                 Logger.debug("sessie word opgeruimd");
                 session("username", loginForm.get().userName);
                 Logger.debug("gebruiker toegevroegd aan sessie");
-              return addWordForm();
-            }else{
+                return addWordForm();
+            } else {
                 Logger.debug("wachtwoord en gebruikernaam komt niet overeen");
-                return badRequest(login.render("admin",loginForm));
+                return badRequest(login.render("admin", loginForm));
             }
-
         }
     }
-    public Result updateWord(){
-        Form<Word> wordForm = formFactory.form(Word.class).bindFromRequest();
-        Word word = Word.getWordById(1);
-        return ok(updateWord.render("update",wordForm,word));
 
-
+    /**
+     * zoals gewoonlijk word er eerst gecontroleerd of de gebruiker niet ingelogd is.
+     * als dat het geval is, word gebruiker doorverwezen naar de formulier om een woord up te daten.
+     * zoniet dan word gebruiker doorverwezen naar inlogpagina
+     * @return
+     */
+    public Result updateWord() {
+        if (session("username").equalsIgnoreCase("admin")) {
+            Form<Word> wordForm = formFactory.form(Word.class).bindFromRequest();
+            Word word = Word.getWordById(1);
+            return ok(updateWord.render("update", wordForm, word));
+        } else {
+            return login();
+        }
     }
 
-    public Result databaseupdateWord(){
-        Form<Word> wordForm = formFactory.form(Word.class).bindFromRequest();
-        Word word = Word.getWordById(1);
-        Logger.debug("ik ben nu in de databaseupdatword");
-        if (wordForm.hasErrors()) {
-            Logger.debug("hij heeft een fout in error gevonden");
-            return badRequest(updateWord.render("update",wordForm, word));
+    /**
+     * methode om een ingevoerde woord up te daten.
+     * voor de zekerheid word er nog wel gekeken of gebruiker al in gelogd is.
+     * @return
+     */
+    public Result databaseupdateWord() {
+
+        if (session("username").equalsIgnoreCase("admin")) {
+            Form<Word> wordForm = formFactory.form(Word.class).bindFromRequest();
+            Word word = Word.getWordById(1);
+            Logger.debug("ik ben nu in de databaseupdatword");
+
+            if (wordForm.hasErrors()) {
+                Logger.debug("hij heeft een fout in error gevonden");
+                return badRequest(updateWord.render("update", wordForm, word));
+
+            } else {
+                Logger.debug("nu zijn we in de else");
+                word.setWord(wordForm.get().getWord());
+                word.setDescription(wordForm.get().getDescription());
+                word.update();
+                return updateWord();
+
+            }
         } else {
+            return login();
 
-            Logger.debug("nu zijn we in de else");
-            word.setWord(wordForm.get().getWord());
-            word.setDescription(wordForm.get().getDescription());
-
-            word.update();
-            return updateWord();
         }
 
 
