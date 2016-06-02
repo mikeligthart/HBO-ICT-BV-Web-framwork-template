@@ -1,0 +1,33 @@
+@*
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@(title: String, form: Form[Word], word: Word)
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main(title) {
+    @*
+    * Get an `Html` object by calling the built-in Play welcome
+    * template and passing a `String` message.
+    *@
+    @helper.form(action = routes.HomeController.databaseupdateWord) {
+
+
+        <input value="@word.word" name="word" type="text" autofocus>
+
+        <input value="@word.description" name="description" type="text" \>
+
+
+            <!-- Change this to a button or input when using this as a form -->
+        <button type="submit">update</button>
+
+
+    }
+
+}
+
+
+

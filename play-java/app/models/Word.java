@@ -30,17 +30,23 @@ public class Word extends Model{
 
     public long count;
 
+
+
     // variable voor de aantal woorden beginpagina
     public static final int maxWord = 5;
 
     public static Model.Find<Long,Word> find = new Model.Find<Long,Word>(){};
 
-    public Word UserById(long id){
+    public Word WordById(long id){
         return find.byId(id);
     }
 
     public String getWord() {
         return word;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public static List<Word> getWords(){
@@ -55,8 +61,18 @@ public class Word extends Model{
 
     }
 
-    public static List<Word> getWordById(Long id) {
-        //een functie die een enkel woord ophaald.
-        return null;
+
+    public static Word getWordById(int id) {
+
+        return find.byId((long) id);
+    }
+
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

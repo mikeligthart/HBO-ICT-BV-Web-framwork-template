@@ -112,6 +112,33 @@ public class HomeController extends Controller {
 
         }
     }
+    public Result updateWord(){
+        Form<Word> wordForm = formFactory.form(Word.class).bindFromRequest();
+        Word word = Word.getWordById(1);
+        return ok(updateWord.render("update",wordForm,word));
+
+
+    }
+
+    public Result databaseupdateWord(){
+        Form<Word> wordForm = formFactory.form(Word.class).bindFromRequest();
+        Word word = Word.getWordById(1);
+        Logger.debug("ik ben nu in de databaseupdatword");
+        if (wordForm.hasErrors()) {
+            Logger.debug("hij heeft een fout in error gevonden");
+            return badRequest(updateWord.render("update",wordForm, word));
+        } else {
+
+            Logger.debug("nu zijn we in de else");
+            word.setWord(wordForm.get().getWord());
+            word.setDescription(wordForm.get().getDescription());
+
+            word.update();
+            return updateWord();
+        }
+
+
+    }
 
 
 }

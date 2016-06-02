@@ -8,6 +8,9 @@ POST    /addnewword                 controllers.HomeController.addWord
 GET     /test/:message              controllers.HomeController.test(message: String)
 GET     /login                      controllers.HomeController.login
 POST    /login                      controllers.HomeController.authenticate
+GET     /login/update               controllers.HomeController.updateWord
+POST    /login/update               controllers.HomeController.databaseupdateWord
+
 
 # hier komt de pagina die word gebruikt als inlog compleet is.
 GET     /addword                    controllers.HomeController.addWordForm
