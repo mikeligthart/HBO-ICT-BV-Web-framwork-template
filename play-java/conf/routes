@@ -8,7 +8,7 @@ POST    /addnewword                 controllers.HomeController.addWord
 GET     /test/:message              controllers.HomeController.test(message: String)
 GET     /login                      controllers.HomeController.login
 POST    /login                      controllers.HomeController.authenticate
-GET     /login/update               controllers.HomeController.updateWord
+GET     /login/update/:position     controllers.HomeController.updateWord(position: Int)
 POST    /login/update               controllers.HomeController.databaseupdateWord
 
 

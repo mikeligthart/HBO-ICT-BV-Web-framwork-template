@@ -41,6 +41,10 @@ public class Word extends Model{
         return find.byId(id);
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getWord() {
         return word;
     }

@@ -105,14 +105,20 @@ public class HomeController extends Controller {
      * @return
      */
     public Result login() {
+        Form<AdminUsers> adminUsersForm = formFactory.form(AdminUsers.class).bindFromRequest();
 
-
-        if (session("username").equalsIgnoreCase("admin")) {
-            Form<AdminUsers> adminUsersForm = formFactory.form(AdminUsers.class).bindFromRequest();
+        if (session().isEmpty()){
             return ok(login.render("Login", adminUsersForm));
-        } else {
-            return addWord();
+        }else{
+            if (!(session("username").equalsIgnoreCase("admin"))) {
+                return ok(login.render("Login", adminUsersForm));
+            } else {
+                return addWord();
+            }
+
         }
+
+
     }
 
     /**
@@ -149,10 +155,10 @@ public class HomeController extends Controller {
      * zoniet dan word gebruiker doorverwezen naar inlogpagina
      * @return
      */
-    public Result updateWord() {
+    public Result updateWord(int position) {
         if (session("username").equalsIgnoreCase("admin")) {
             Form<Word> wordForm = formFactory.form(Word.class).bindFromRequest();
-            Word word = Word.getWordById(1);
+            Word word = Word.getWordById(position);
             return ok(updateWord.render("update", wordForm, word));
         } else {
             return login();
@@ -168,7 +174,8 @@ public class HomeController extends Controller {
 
         if (session("username").equalsIgnoreCase("admin")) {
             Form<Word> wordForm = formFactory.form(Word.class).bindFromRequest();
-            Word word = Word.getWordById(1);
+
+            Word word = Word.getWordById((int) wordForm.get().getId());
             Logger.debug("ik ben nu in de databaseupdatword");
 
             if (wordForm.hasErrors()) {
@@ -180,7 +187,7 @@ public class HomeController extends Controller {
                 word.setWord(wordForm.get().getWord());
                 word.setDescription(wordForm.get().getDescription());
                 word.update();
-                return updateWord();
+                return index();
 
             }
         } else {
