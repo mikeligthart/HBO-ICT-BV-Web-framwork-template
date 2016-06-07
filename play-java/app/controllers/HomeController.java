@@ -2,7 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import models.AdminUsers;
-import models.User;
+
 import models.Word;
 import play.Logger;
 import play.data.DynamicForm;
@@ -25,8 +25,6 @@ import static play.data.Form.form;
 public class HomeController extends Controller {
     @Inject
     FormFactory formFactory;
-    @Inject
-    FormFactory testformFactory;
 
     private static final String gebruiker = "admin";
     private static final String wachtwoord = "1234";
@@ -86,15 +84,6 @@ public class HomeController extends Controller {
             return login();
         }
 
-    }
-
-    /**
-     * niet verwijderen kan van pas komen voor update
-     * @param message
-     * @return
-     */
-    public Result test(String message) {
-        return ok(test.render("Test", message));
     }
 
 

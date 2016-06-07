@@ -28,8 +28,6 @@ public class Word extends Model{
     public String description;
 
 
-    public long count;
-
 
 
     // variable voor de aantal woorden beginpagina
@@ -37,9 +35,7 @@ public class Word extends Model{
 
     public static Model.Find<Long,Word> find = new Model.Find<Long,Word>(){};
 
-    public Word WordById(long id){
-        return find.byId(id);
-    }
+
 
     public long getId() {
         return id;
