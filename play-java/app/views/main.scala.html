@@ -1,9 +1,4 @@
-@*
-* This template is called rom the `index` template. This template
-* handles the rendering of the page header and body tags. It takes
-* two arguments, a `String` for the title of the page and an `Html`
-* object to insert into the body of the page.
-*@
+
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
@@ -30,24 +25,21 @@
     </head>
     <body>
         <header class="header">
-            @*If login*@
-            @if(request.uri == "/login" || request.uri == "/addnewword") {
-                <a href="/"><img class="left-header-icon" src="@routes.Assets.versioned("images/home.png")" alt="home"></a>
-                <a href="/woorden"><img class="right-header-icon" src="@routes.Assets.versioned("images/search.png")" alt="zoeken"></a>
 
-            }
 
             @*if home*@
             @if(request.uri == "/") {
                 <a href="/login"><img class="left-header-icon" src="@routes.Assets.versioned("images/login.png")" alt="login"></a>
                 <a href="/woorden"><img class="right-header-icon" src="@routes.Assets.versioned("images/search.png")" alt="zoeken"></a>
-            }
-
-            @*if woorden zoeken*@
+            }else{
             @if(request.uri == "/woorden") {
                 <a href="/login"><img class="left-header-icon" src="@routes.Assets.versioned("images/login.png")" alt="login"></a>
                 <a href="/"><img class="right-header-icon" id="home-button" src="@routes.Assets.versioned("images/home.png")" alt="home"></a>
-            }
+            }else {
+                <a href="/"><img class="left-header-icon" src="@routes.Assets.versioned("images/home.png")" alt="home"></a>
+                <a href="/woorden"><img class="right-header-icon" src="@routes.Assets.versioned("images/search.png")" alt="zoeken"></a>
+
+            }}
 
         </header>
         <div class="main">

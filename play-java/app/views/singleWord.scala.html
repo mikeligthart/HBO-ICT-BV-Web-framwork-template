@@ -1,0 +1,31 @@
+@(title: String, word: Word)
+@main(title) {
+
+    <div class="text-center m-b-20">
+        <img class="home-image" src="@routes.Assets.versioned("images/digipedia.png")" alt="digipedia"><br>
+        <span class="home-text">Welkom bij DIGIPEDIA.</span><br> <span class="home-text">
+        Dit is uw gezochte woord</span>
+    </div>
+
+
+    <div class="col-md-6 col-md-offset-3">
+        <table class="table table-striped">
+            <tbody id="table">
+
+
+                <tr>
+                    <td> <h4><center><b>@word.getWord</b></center></h4> </td>
+                </tr>
+                <tr>
+                    <td> <h4><center>@word.getDescription</center></h4> </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="container">
+        <a class="btn btn-lg btn-success btn-block home-button" href="/woorden"> zoek andere begrip</a>
+    </div>
+}

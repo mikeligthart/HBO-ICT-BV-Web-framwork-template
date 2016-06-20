@@ -19,7 +19,7 @@ public class Word extends Model{
 
     @Id
     @GeneratedValue
-    public long id;
+    public int id;
 
     @Constraints.Required
     public String word;
@@ -27,17 +27,9 @@ public class Word extends Model{
     @Column(columnDefinition = "TEXT")
     public String description;
 
+    public static Model.Find<Integer,Word> find = new Model.Find<Integer,Word>(){};
 
-
-
-    // variable voor de aantal woorden beginpagina
-    public static final int maxWord = 5;
-
-    public static Model.Find<Long,Word> find = new Model.Find<Long,Word>(){};
-
-
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -54,19 +46,10 @@ public class Word extends Model{
     }
 
 
-    public static List<Word> getFiveMostCounted(){
-
-        List<Word> words = find.where().setOrderBy("id").findList();
-        return words.stream().limit(maxWord).collect(Collectors.toList());
-
-    }
-
-
     public static Word getWordById(int id) {
 
-        return find.byId((long) id);
+        return find.byId(id);
     }
-
 
     public void setWord(String word) {
         this.word = word;

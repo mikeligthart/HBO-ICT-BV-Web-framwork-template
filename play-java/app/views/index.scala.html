@@ -2,7 +2,7 @@
 * This template takes a single argument, a String containing a
 * message to display.
 *@
-@(title: String, wordMostSearch: List[Word])
+@(title: String, fronttekst:String)
     @*
     * Call the `main` template with two arguments. The first
     * argument is a `String` with the title of the page, the second
@@ -19,31 +19,13 @@
             Hier vindt je antwoord op jouw vraag</span>
         </div>
 
-        @if(wordMostSearch.size > 0) {
+
             <div class="col-md-6 col-md-offset-3">
-                <h5>5 meest gezochte woorden</h5>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Begrip</th>
-                            <th>Omschrijving</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="table">
-                    @for(word <- wordMostSearch) {
-                        <tr>
-                            <td> @word.word </td>
-                            <td id="description">@word.description </td>
-                            <td id="go-button"><a href="/singleWord(id)"><img src="@routes.Assets.versioned("images/go.png")" alt="go"> </a></td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
+
+
+                <center rows="5" cols="180">@fronttekst </center>
             </div>
-        } else {
-            Geen begrip in database.
-        }
+
         <div class="clearfix"></div>
         <div class="container">
             <a class="btn btn-lg btn-success btn-block home-button" href="/woorden">Of zoek jouw begrip</a>

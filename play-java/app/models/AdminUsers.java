@@ -14,13 +14,8 @@ import java.util.List;
  */
 
 public class AdminUsers extends Model{
-
     public String userName;
-
     public String password;
-
-
-
 
     public String getUserName() {
         return userName;
