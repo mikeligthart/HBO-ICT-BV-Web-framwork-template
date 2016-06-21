@@ -59,8 +59,8 @@
                     <tr>
                         <td> @word.word </td>
                         <td id="description">@word.description </td>
-                        <td id="go-button"><a href="@routes.HomeController.updateWord(word.getId())"><img src="@routes.Assets.versioned("images/go.png")" alt="go"> </a></td>
-                        <td id="go-button"><a href="@routes.HomeController.deleteWord(word.getId())"><img src="@routes.Assets.versioned("images/go.png")" alt="go"> </a></td>
+                        <td id="go-button"><a href="@routes.HomeController.updateWord(word.getId())"><img src="@routes.Assets.versioned("images/update.png")" height="18" width="15" alt="go"> </a></td>
+                        <td id="go-button"><a href="@routes.HomeController.deleteWord(word.getId())"><img src="@routes.Assets.versioned("images/deleted.png")" height="18" width="15" alt="go"> </a></td>
                     </tr>
                 }
                 </tbody>
